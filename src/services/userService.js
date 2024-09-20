@@ -8,6 +8,7 @@ exports.register = async (userData)=>{
     const {name , email , password} = userData;
 
     const ISexist = await userRepositories.getUserByEmail(email);
+
     if(ISexist){
 
         throw new Error('User already exists');
@@ -20,3 +21,18 @@ exports.register = async (userData)=>{
     return newUser;
 }
 
+exports.login = async (userData)=>{
+
+    const {email , password} = userData;
+
+
+    const user = await userRepositories.getUserByEmail(email);
+    if(!user) throw new Error('user not found');
+
+
+    const isMatch = await bcrypt.compare(password , user.password);
+    if(!isMatch) throw new Error('invalid credentials');
+
+
+    return user;
+}
