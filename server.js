@@ -1,6 +1,8 @@
 const express = require('express');
 const connectDB = require('./src/config/database');
-const userRouter = require('./src/routes/userRouter');
+const AuthRouter = require('./src/routes/AuthRouter');
+const adminRouter = require('./src/routes/adminRouter');
+const movieRouter = require('./src/routes/movieRouter');
 
 connectDB();
 const app = express();
@@ -17,7 +19,12 @@ app.get('/' , (req , res)=>{
     res.send('hello');
 });
 
-app.use('/api/auth', userRouter);
+
+app.use('/api/auth', AuthRouter);
+app.use('/api/admin', adminRouter);
+app.use('/api/movie', movieRouter);
+
+
 
 
 

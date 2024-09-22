@@ -19,4 +19,4 @@ exports.authMiddlware = async (req , res , next)=>{
 
         res.status(401).json({message : 'invalid token'});
     }
-}
+};

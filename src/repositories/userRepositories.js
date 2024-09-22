@@ -12,8 +12,14 @@ exports.createUser = async (userData)=>{
 
 
 
+
 exports.getUserByEmail = async (email)=>{
 
     return await  User.findOne({email});
      
+}
+
+exports.getUserById = async (id)=>{
+
+    return await  User.findOne({id});
 }
