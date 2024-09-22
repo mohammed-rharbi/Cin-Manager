@@ -23,3 +23,14 @@ exports.getUserById = async (id)=>{
 
     return await  User.findOne({id});
 }
+
+
+exports.updateUser = async (id , userData)=>{
+    
+    return await  User.findByIdAndUpdate(id , userData , {new : true});
+}
+
+exports.deleteUser = async (id)=>{
+
+    return await  User.findByIdAndDelete(id);
+}

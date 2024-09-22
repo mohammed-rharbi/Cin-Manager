@@ -9,6 +9,8 @@ const router = express.Router();
 // router.use(authMiddlware , isAdmin);
 
 router.post('/CreateAdmin', adminController.RegisterAdmin );
+router.put('/updateAdmin/:id' , adminController.updateAdmin);
+router.delete('/deleteAdmin/:id' , adminController.deleteAdmin);
 
 
 

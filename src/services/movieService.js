@@ -7,32 +7,32 @@ const cloudinary = require('cloudinary');
 class MovieService{
 
 
-    async createMovie(movieData , imgUrl){
+    async createMovie(movieData){
  
 
-        let url ;
+        // let url ;
 
-        if(imgUrl){
+        // if(imgUrl){
 
-            const result = await cloudinary.uploader.upload(imgUrl.path ,{
+        //     const result = await cloudinary.uploader.upload(imgUrl.path ,{
 
-                folder : 'cinema-manager',
-            });
+        //         folder : 'cinema-manager',
+        //     });
 
-            url = result.secure_url;
-        }
+        //     url = result.secure_url;
+        // }
 
-        const movie = {
-            ...movieData,
-            image : url || null 
-        }
+        // const movie = {
+        //     ...movieData,
+        //     image : url || null 
+        // }
 
-        const newMovie = await movieRepositories.create(movie);
+        const newMovie = await movieRepositories.create(movieData);
 
         return  newMovie
     }
 
-    
+
 
     async getMovieById(id){
 
@@ -47,6 +47,24 @@ class MovieService{
         const movies = await movieRepositories.getMovies();
 
         return movies;  
+
+    }
+
+
+    async updateMovie(id , movieData){
+
+
+        const movie = await movieRepositories.updateMovie(id , movieData);
+
+        return movie;
+
+    }
+
+
+    async deleteMovie(id){
+
+
+         await movieRepositories.deleteMovie(id);
 
     }
 

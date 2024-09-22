@@ -29,6 +29,17 @@ return await Movie.find();
 
 }
 
+async updateMovie(id , movieData){
+
+return await Movie.findByIdAndUpdate(id , movieData , {new : true})
+
+}
+
+async deleteMovie(id){
+
+return await Movie.findByIdAndDelete(id);
+}
+
 
 
 

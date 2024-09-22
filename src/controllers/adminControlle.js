@@ -24,3 +24,39 @@ exports.RegisterAdmin = async (req , res)=>{
         res.status(400).json({error : err.message});
     }
 }
+
+exports.updateAdmin = async (req , res)=>{
+
+
+    try{
+        
+    // const {error} = registerValidation.validate(req.body);
+    // if(error) throw new Error(error.details[0].message);
+
+    const updatedAdmin = await adminService.updateAdmin(req.params.id , req.body);
+    res.status(200).json({message : 'admin was updated successfully' , admin : updatedAdmin});
+
+    }catch(err){
+
+        res.status(400).json({error : err.message});
+
+    }
+}
+
+exports.deleteAdmin = async (req , res)=>{
+
+
+    try{
+
+
+    const deletedAdmin = await adminService.deleteAdmin(req.params.id);
+
+    res.status(200).json({message : 'admin was deleted successfully' , admin : deletedAdmin});
+
+    }catch(err){
+
+        res.status(400).json({error : err.message});
+
+    }
+    
+}

@@ -1,0 +1,33 @@
+const room = require('../models/roomSchema');
+
+
+
+
+class RoomRepository {
+
+
+    async create(roomData){
+
+        const newRoom = new room(roomData);
+        return await newRoom.save();
+
+    }
+
+    async getAllRooms(){
+
+        return await room.find();
+    }
+
+    async updateRoom(id , roomData){
+
+        return await room.findByIdAndUpdate(id , roomData , {new : true});
+    }
+
+    async deleteRoom(id){
+
+        return await room.findByIdAndDelete(id);
+    }
+
+}
+
+module.exports =  new RoomRepository();

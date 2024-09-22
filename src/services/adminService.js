@@ -21,3 +21,23 @@ exports.CreateAdmin = async (AdminData)=>{
 
     return newAdmin;
 }
+
+exports.updateAdmin = async (id , userData)=>{
+
+
+    const {name , email , password} = userData;
+
+    if(password){
+        const hashPass = await bcrypt.hash(password , 10);
+        userData.password = hashPass;
+    }
+    
+    return await  userRepositories.updateUser(id , userData);
+    
+}
+
+
+exports.deleteAdmin = async (id)=>{
+
+    return await  userRepositories.deleteUser(id);
+}
