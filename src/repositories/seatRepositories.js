@@ -23,9 +23,13 @@ class SeatRepositories {
 
     async deletByRoom(RoomId) {
 
-        return await seat.deleteMany({room : RoomId});
+        return await seat.deleteMany({room : RoomId });
     }
 
+    async getRoomSeats(RoomId) {
+
+        return await seat.find({room : RoomId , isAvailable : true});
+    }
 }
 
 module.exports = new SeatRepositories()

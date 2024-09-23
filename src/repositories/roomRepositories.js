@@ -28,6 +28,11 @@ class RoomRepository {
         return await room.findByIdAndDelete(id);
     }
 
+    async getRoomById(id){
+
+        return await room.findById(id);
+    }
+
 }
 
 module.exports =  new RoomRepository();
