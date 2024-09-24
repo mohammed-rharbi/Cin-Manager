@@ -5,6 +5,7 @@ const adminRouter = require('./src/routes/adminRouter');
 const movieRouter = require('./src/routes/movieRouter');
 const roomRouter = require('./src/routes/roomRouter');
 const showTimeRouter = require('./src/routes/showTimeRouter');
+const reservationRouter = require('./src/routes/reservationRouter');
 
 connectDB();
 const app = express();
@@ -27,6 +28,7 @@ app.use('/api/admin', adminRouter);
 app.use('/api/movie', movieRouter);
 app.use('/api/room', roomRouter);
 app.use('/api/showTime', showTimeRouter);
+app.use('/api/reservation', reservationRouter);
 
 
 

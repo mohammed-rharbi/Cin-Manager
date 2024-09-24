@@ -61,6 +61,20 @@ class showtimeService {
         return await ShowtimeRepositories.deleteShowtime(id);
 
     }
+
+    async getSetsByShowtime(id){
+
+
+        const showtime = await ShowtimeRepositories.getShowtimeById(id);
+        if(!showtime) {
+            throw new Error('showtime not found');
+        }
+        const seats = await seatRepositories.getSeatsByShowtime(id);
+        if(!seats) {
+            throw new Error('seats not found');
+        }
+        return {showtime , seats};
+    }
     
 
 }

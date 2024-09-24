@@ -21,7 +21,7 @@ class MovieService{
 
         //     url = result.secure_url;
         // }
-
+        
         // const movie = {
         //     ...movieData,
         //     image : url || null 

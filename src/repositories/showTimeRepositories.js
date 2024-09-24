@@ -7,9 +7,7 @@ class ShowtimeRepositories {
 
 async create (showtimeData) {
 
-
     return await showtime.create(showtimeData);
-
 }
 
 async getAllShowtimes() {
