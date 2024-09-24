@@ -20,13 +20,13 @@ console.log(userId , showTimeId , seateId);
 }
 async getAll () {
 
-
     return await resrevation.find();
 }
 
-async update (reservationId , reservationData){
 
-    return await resrevation.findByIdAndUpdate(reservationId , reservationData);
+async update (id , reservationData){
+
+    return await resrevation.findByIdAndUpdate(id , reservationData , {new : true});
 }
 
 async delete (reservationId){

@@ -42,6 +42,20 @@ class resrevationService {
     }
 
 
+    async updateReservation(id , reservationData){
+
+        if(!id) {
+            throw new Error('id is required');
+        }
+
+        if(!reservationData) {
+            throw new Error('reservationData is required');
+        }
+
+        
+        return await resrevationRepositories.update(id , reservationData);
+        
+    }
 
     async getAllReservations() {
 

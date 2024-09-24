@@ -1,6 +1,6 @@
 const express = require('express');
 const roomController = require('../controllers/roomController');
-const {isAdmin , authMiddlware} = require('../middlewares/adminModdleware');
+const {isAdmin , authMiddlware} = require('../middlewares/authMiddleware');
 // const upload = require('../middlewares/upload');
 
 

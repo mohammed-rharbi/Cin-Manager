@@ -1,6 +1,6 @@
 const express = require('express');
 const showtimeController = require('../controllers/showTimeController');
-const {authMiddlware} = require('../middlewares/authMiddleware');
+const {authMiddlware , isAdmin} = require('../middlewares/authMiddleware');
 
 
 
