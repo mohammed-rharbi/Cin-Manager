@@ -69,11 +69,9 @@ class showtimeService {
         if(!showtime) {
             throw new Error('showtime not found');
         }
-        const seats = await seatRepositories.getSeatsByShowtime(id);
-        if(!seats) {
-            throw new Error('seats not found');
-        }
-        return {showtime , seats};
+       
+        const seats = showtime.seats;
+        return {seats};
     }
     
 

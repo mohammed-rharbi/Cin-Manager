@@ -7,8 +7,12 @@ const {isAdmin , authMiddlware} = require('../middlewares/adminModdleware');
 
 const router = express.Router();
 
-router.post('/createRoom', roomController.createRoom );
+
 router.get('/getRooms', roomController.getRooms);
+
+router.use(authMiddlware , isAdmin);
+
+router.post('/createRoom', roomController.createRoom );
 router.put('/updateRoom/:id' , roomController.updateRoom);
 router.delete('/deleteRoom/:id' , roomController.deleteRoom);
 

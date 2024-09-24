@@ -17,7 +17,7 @@ exports.RegisterAdmin = async (req , res)=>{
 
         const tokken = jwt.sign({id : newAdmin._id , role : newAdmin.role} , jwt_secret , {expiresIn : '3h'} );
 
-        res.status(201).json({message:'admin was registerd successfully', user: newUser , token : tokken});
+        res.status(201).json({message:'admin was registerd successfully', user: newAdmin , token : tokken});
 
     }catch(err){
 

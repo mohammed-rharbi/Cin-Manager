@@ -8,9 +8,12 @@ const {isAdmin , authMiddlware} = require('../middlewares/adminModdleware');
 const router = express.Router();
 
 
+router.get('/allMovies' , movieController.getMovies);
+
+router.use(authMiddlware , isAdmin);
+
 
 router.post('/createMovie' , movieController.createMovie );
-router.get('/allMovies' , movieController.getMovies);
 router.put('/updateMovie/:id' , movieController.updateMovie);
 router.delete('/deleteMovie/:id' , movieController.deleteMovie);
 

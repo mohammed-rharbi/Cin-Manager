@@ -78,3 +78,18 @@ exports.deleteShowTime = async (req , res)=>{
     }
 
 }
+
+
+exports.getSeats = async (req , res)=>{
+
+
+    try{
+
+        const seats = await showtimeService.getSetsByShowtime(req.params.id);
+
+        res.status(200).json({message : 'seats were fetched successfully' , seats});
+    }catch(err){
+
+        res.status(400).json({error : err.message});
+    }
+}
