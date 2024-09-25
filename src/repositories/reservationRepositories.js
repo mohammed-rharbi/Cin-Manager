@@ -29,6 +29,11 @@ async update (id , reservationData){
     return await resrevation.findByIdAndUpdate(id , reservationData , {new : true});
 }
 
+async updateStatus (id){
+
+    return await resrevation.findByIdAndUpdate(id , {status : 'canceled'} , {new : true});
+}
+
 async delete (reservationId){
 
     return await resrevation.findByIdAndDelete(reservationId);

@@ -10,8 +10,11 @@ const router = express.Router();
 router.use(authMiddlware , isCustomer);
 
 router.post('/createReservation' , reservationController.createReservation );
-// router.get('/allMovies' , movieController.getMovies);
-// router.put('/updateMovie/:id' , movieController.updateMovie);
-// router.delete('/deleteMovie/:id' , movieController.deleteMovie);
+router.post('/cancelReservation/:id' , reservationController.cancelReservation );
+
+router.get('/getAllReservations' , reservationController.getUserReservations);
+
+router.put('/updateReservation/:id' , reservationController.updateReservation);
+
 
 module.exports = router;

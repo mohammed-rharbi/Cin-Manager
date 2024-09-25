@@ -33,6 +33,11 @@ class SeatRepositories {
 
         return await seat.findByIdAndUpdate(seatId , {isAvailable : false});
     }
+
+    async setSeatAvailable (seatId) {
+
+        return await seat.findByIdAndUpdate(seatId , {isAvailable : true});
+    }
 }
 
 module.exports = new SeatRepositories()

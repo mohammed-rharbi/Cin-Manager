@@ -21,7 +21,7 @@ exports.getUserByEmail = async (email)=>{
 
 exports.getUserById = async (id)=>{
 
-    return await  User.findOne({id});
+    return await  User.findOne({_id : id});
 }
 
 
