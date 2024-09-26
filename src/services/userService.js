@@ -1,5 +1,11 @@
 const userRepositories = require('../repositories/userRepositories');
 const bcrypt = require('bcrypt');
+const nodemailer = require('nodemailer');
+const jwt = require('jsonwebtoken');
+const { Error } = require('mongoose');
+// const { setMaxListeners } = require('../models/movieSchema');
+const jwt_secret = process.env.JWT_SECRET;
+
 
 
 
@@ -36,4 +42,73 @@ exports.login = async (userData)=>{
 
     return user;
 }
+
+
+const resetTokenEX = '1h';
+
+
+
+exports.resetPasswordRequist = async (email)=>{
+
+const user = await userRepositories.getUserByEmail(email);
+if(!user) throw new Error('user not found');
+
+const userId =  user._id;
+
+
+const resetTokken = jwt.sign({id : userId} , jwt_secret , {expiresIn : resetTokenEX});
+const resLink = `http://localhost:5000/api/auth/resetPassword/${resetTokken}`;
+
+const transporter = nodemailer.createTransport({
+
+    service:'gmail',
+    auth:{
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+    }
+
+});
+
+
+const mailOptions = {
+
+    from : process.env.EMAIL_USER,
+    to :  email,
+    subject : 'email reset',
+    html : `
+    <p>You requested to reset your password.</p>
+        <p>Click the link below to reset your password:</p>
+        <a href="${resLink}">${resLink}</a>
+        <p>The link expires in 1 hour.</p>`
+};
+
+await transporter.sendMail(mailOptions);
+}
+
+
+exports.resetPassword = async (resetToken , newPassword)=>{
+
+
+const decoded = jwt.verify(resetToken , jwt_secret);
+
+if(!decoded){
+    throw new Error('its not found')
+}
+
+const userId = decoded.id;
+
+console.log(userId)
+
+
+const user = await userRepositories.getUserById(userId);
+if(!user) throw new Error('user not found');
+
+
+const salt = await bcrypt.genSalt(10);
+user.password = await bcrypt.hash(newPassword , salt)
+await userRepositories.save(user);
+
+return 'password reset successfully';
+}
+
 

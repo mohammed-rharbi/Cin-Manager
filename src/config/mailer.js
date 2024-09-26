@@ -21,7 +21,7 @@ exports.sendConfirmation = async (to , body)=>{
         from: process.env.EMAIL_USER,
         to,
         subject : 'Reservation Confirmation',
-        
+        html: body
     };
     try{
 
@@ -49,5 +49,5 @@ exports.generateEmail = async (reservation) => {
      <p><strong>Date:</strong>'Date unavailable'}</p>
      <p>We look forward to seeing you at the cinema!</p>
     `;
-};  
+};
 

@@ -57,3 +57,35 @@ exports.logoutUser = async (req , res)=>{
 
     res.status(200).json({message : 'user was logout successfully'});
 }
+
+
+exports.ReqresetPassword = async (req , res)=>{
+
+    try{
+
+        const {email} = req.body;
+        const messageRes = await userService.resetPasswordRequist(email);
+        res.status(200).json({ message:'request was send successfully to your email' , messageRes })
+
+
+    }catch(err){
+
+        res.status(400).json({error : err.message});
+    }
+
+}
+
+exports.resetPassword = async (req , res)=>{
+
+    try{
+        const {resetToken} = req.params;
+        const {newPassword} = req.body; 
+        const message = await userService.resetPassword(resetToken , newPassword);
+        res.status(200).json({message })
+
+    }catch(err){
+        res.status(400).json({error : err.message});
+
+    }
+
+}

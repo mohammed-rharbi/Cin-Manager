@@ -13,9 +13,9 @@ exports.createUser = async (userData)=>{
 
 
 
-exports.getUserByEmail = async (email)=>{
+exports.getUserByEmail = async (userEmail)=>{
 
-    return await  User.findOne({email});
+    return await  User.findOne({email : userEmail});
      
 }
 
@@ -33,4 +33,8 @@ exports.updateUser = async (id , userData)=>{
 exports.deleteUser = async (id)=>{
 
     return await  User.findByIdAndDelete(id);
+}
+
+exports.save = async (user)=>{
+    return await user.save();
 }

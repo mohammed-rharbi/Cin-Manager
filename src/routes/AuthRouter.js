@@ -13,7 +13,9 @@ router.post('/login', AuthController.loginUser);
 
 router.post('/logout' , authMiddlware, AuthController.logoutUser);
 
+router.post('/forget' , AuthController.ReqresetPassword);
 
+router.post('/resetPassword/:resetToken' , AuthController.resetPassword);
 
 
 

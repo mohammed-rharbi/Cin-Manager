@@ -48,7 +48,6 @@ exports.updateReservation = async (req , res)=>{
 
 
     try{
-
         const reservationId = req.params.id;
         const userId = req.user.id;
         const reservationData = req.body;
@@ -63,9 +62,7 @@ exports.updateReservation = async (req , res)=>{
 exports.getUserReservations = async (req , res)=>{
 
     try{
-
         const userId = req.user.id;
-        
         const reservations = await reservationService.getAllReservations(userId);
         res.status(200).json({message : 'reservations were fetched successfully' , reservations : reservations});
 
