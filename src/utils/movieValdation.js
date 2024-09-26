@@ -8,7 +8,7 @@ const movieValidation = joi.object({
     description: joi.string().min(5).max(200).required(),
     deroctor: joi.string().required(),
     duration: joi.number().required(),
-    relseDate: joi.date().greater('now').required(),
+    relseDate: joi.date().max('now').required(),
     image: joi.string(),
 });
 

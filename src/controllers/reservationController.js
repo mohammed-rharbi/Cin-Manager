@@ -13,13 +13,6 @@ exports.createReservation = async (req , res)=>{
 
         const {showTimeId , seateId} = req.body;
 
-        //  console.log(showTimeId , seateId);
-
-        // console.log(req.user);
-
-
-
-
         const reservation = await reservationService.createReservation(userId , {showTimeId , seateId} );
         res.status(201).json({message : 'reservation was created successfully' , reservation : reservation});
 
