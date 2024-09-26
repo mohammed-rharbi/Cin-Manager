@@ -44,10 +44,6 @@ exports.login = async (userData)=>{
 }
 
 
-const resetTokenEX = '1h';
-
-
-
 exports.resetPasswordRequist = async (email)=>{
 
 const user = await userRepositories.getUserByEmail(email);
@@ -56,7 +52,7 @@ if(!user) throw new Error('user not found');
 const userId =  user._id;
 
 
-const resetTokken = jwt.sign({id : userId} , jwt_secret , {expiresIn : resetTokenEX});
+const resetTokken = jwt.sign({id : userId} , jwt_secret , {expiresIn : '1h'});
 const resLink = `http://localhost:5000/api/auth/resetPassword/${resetTokken}`;
 
 const transporter = nodemailer.createTransport({
@@ -96,8 +92,6 @@ if(!decoded){
 }
 
 const userId = decoded.id;
-
-console.log(userId)
 
 
 const user = await userRepositories.getUserById(userId);
