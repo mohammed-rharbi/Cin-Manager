@@ -46,20 +46,69 @@ test('login user successfully', async ()=>{
 
 
 
+// test('schould throw error when regster existing user', async ()=>{
 
+//     const existingUser = {name : 'test' , email : 'test@gmail.com' , password : 'sometest' , role : 'customer' };
 
-})
+//     userRepositories.getUserByEmail.mockResolvedValue(existingUser);
 
+//     await expect(userService.register({name : 'test' , email : 'test@gmail.com' , password : 'password123' , role : 'customer'})).rejects.toThrow('User already exists');
 
-
-
-// test('create session must return a status of 201', async () => {
-//     const mocksession = { id: 'session1', movie: 'dsfghjfdrsezzeqruj', room: 'dfghfjkljjhgdfsqsdfg', dateTime: '12-02-2000', price: 222 };
-
-//     sessionService.createSession.mockResolvedValue(mocksession);
-
-//     await sessionController.createSession(req, res);
-//     expect(res.statusCode).toBe(201);
-//     expect(res.data).toEqual(mocksession);
+//     expect(userRepositories.getUserByEmail).toHaveBeenCalledWith('test@gmail.com');
+//     expect(userRepositories.createUser).not.toHaveBeenCalled();
 
 // });
+
+
+
+test('should throw an error when user enters wrong password', async () => {
+    const existingUser = { name: 'test', email: 'test@gmail.com', password: 'hashedPassword', role: 'customer' };
+  
+    userRepositories.getUserByEmail.mockResolvedValue(existingUser);
+  
+    jest.spyOn(bcrypt, 'compare').mockResolvedValue(false);
+  
+    await expect(userService.login({ email: 'test@gmail.com', password: 'wrongPassword' }))
+      .rejects
+      .toThrow('invalid credentials');
+  
+    expect(userRepositories.getUserByEmail).toHaveBeenCalledWith('test@gmail.com');
+  });
+  
+
+
+  test('should throw an error when logging in with a non-existent email', async () => {
+
+     userRepositories.getUserByEmail.mockResolvedValue(null);
+  
+    await expect(userService.login({ email: 'nonexistent@gmail.com', password: 'test' }))
+      .rejects
+      .toThrow('user not found');
+  
+    expect(userRepositories.getUserByEmail).toHaveBeenCalledWith('nonexistent@gmail.com');
+  });
+
+
+  test('should send reset password email', async () => {
+    const existingUser = { _id: 'userId123', email: 'test@gmail.com' };
+  
+
+    userRepositories.getUserByEmail.mockResolvedValue(existingUser);
+    const mockSendMail = jest.fn().mockResolvedValue(true);
+    jest.spyOn(nodemailer, 'createTransport').mockReturnValue({ sendMail: mockSendMail });
+  
+    await userService.resetPasswordRequist('test@gmail.com');
+  
+    expect(userRepositories.getUserByEmail).toHaveBeenCalledWith('test@gmail.com');
+    expect(mockSendMail).toHaveBeenCalledWith(expect.objectContaining({
+      to: 'test@gmail.com',
+      subject: 'email reset',
+      html: expect.stringContaining('http://localhost:5000/api/auth/resetPassword/')
+    }));
+  });
+  
+  
+
+
+
+});
