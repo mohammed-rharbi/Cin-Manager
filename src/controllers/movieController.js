@@ -11,9 +11,10 @@ exports.createMovie = async (req , res)=>{
         const {error} = movieValidation.validate(req.body);
         if(error) throw new Error(error.details[0].message);
      
+        
+        const image = req.file.path ? req.file.path : null;
 
-
-        const newMovie = await MovieService.createMovie(req.body);
+        const newMovie = await MovieService.createMovie({ ...req.body , image});
 
 
         res.status(201).json({message : 'movie was created successfully' , movie : newMovie});

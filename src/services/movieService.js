@@ -1,76 +1,59 @@
-const movieRepositories = require('../repositories/movieRepositories');
-const cloudinary = require('cloudinary');
+    const movieRepositories = require('../repositories/movieRepositories');
+    const cloudinary = require('cloudinary');
 
 
 
 
-class MovieService{
+    class MovieService{
 
 
-    async createMovie(movieData){
- 
+        async createMovie(movieData){
+    
 
-        // let url ;
+            const newMovie = await movieRepositories.create(movieData);
 
-        // if(imgUrl){
-
-        //     const result = await cloudinary.uploader.upload(imgUrl.path ,{
-
-        //         folder : 'cinema-manager',
-        //     });
-
-        //     url = result.secure_url;
-        // }
-        
-        // const movie = {
-        //     ...movieData,
-        //     image : url || null 
-        // }
-
-        const newMovie = await movieRepositories.create(movieData);
-
-        return  newMovie
-    }
+            return  newMovie
+        }
 
 
 
-    async getMovieById(id){
+        async getMovieById(id){
 
 
-        const movie = await movieRepositories.getMovieById(id);
-        if(!movie) throw new Error('Movie not found');
-        return movie;
-    }
+            const movie = await movieRepositories.getMovieById(id);
+            if(!movie) throw new Error('Movie not found');
+            return movie;
+        }
 
-    async getMovies(){
+        async getMovies(){
 
-        const movies = await movieRepositories.getMovies();
+            const movies = await movieRepositories.getMovies();
 
-        return movies;  
+            return movies;  
 
-    }
-
-
-    async updateMovie(id , movieData){
+        }
 
 
-        const movie = await movieRepositories.updateMovie(id , movieData);
+        async updateMovie(id , movieData){
 
-        return movie;
+
+            const movie = await movieRepositories.updateMovie(id , movieData);
+
+            return movie;
+
+        }
+
+
+        async deleteMovie(id){
+
+
+            await movieRepositories.deleteMovie(id);
+            
+            return 'movie was deleted successfully';
+
+        }
+
 
     }
 
-
-    async deleteMovie(id){
-
-
-         await movieRepositories.deleteMovie(id);
-         
-         return 'movie was deleted successfully';
-
-    }
-
-
-}
-
-module.exports = new MovieService();
+    module.exports = new MovieService();
