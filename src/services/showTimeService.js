@@ -26,7 +26,7 @@ class showtimeService {
             throw new Error('showtime already scheduled');
         }
         
-        const seats = roomSeats
+        const seats = roomSeats ;
 
          if(!seats) {
             throw new Error('seats not found');
@@ -57,8 +57,11 @@ class showtimeService {
 
     async deleteShowtime(id) {
 
-
-        return await ShowtimeRepositories.deleteShowtime(id);
+        const deletedShowtime = await ShowtimeRepositories.deleteShowtime(id);
+        if(!deletedShowtime) {
+            throw new Error('Showtime not found');
+        }
+        return deletedShowtime;
 
     }
 
