@@ -45,7 +45,12 @@ class RoomService {
 
         await seatRepositories.deletByRoom(id);
 
-        await roomRepositories.deleteRoom(id);
+        const room = await  roomRepositories.deleteRoom(id);
+        if (!room) {
+            throw new Error('room not found');
+        }
+
+        return room;
 
     }
 

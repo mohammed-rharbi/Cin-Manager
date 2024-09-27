@@ -10,9 +10,7 @@ jest.mock('../repositories/movieRepositories');
 describe('movieService', () => {
 
 
-
     test('should create a new movie successfully', async () => {
-
 
         const movieData = { title: 'Test Movie', description: 'Action', director: 'Director Name', duration: 120 };
         const newMovie = { _id: 'movieId123', ...movieData };
@@ -31,7 +29,6 @@ describe('movieService', () => {
         const movieId = 'movieId123';
         const movie = { _id: movieId, title: 'Test Movie', genre: 'Action' };
       
-
         movieRepositories.getMovieById.mockResolvedValue(movie);
       
         const result = await movieService.getMovieById(movieId);
