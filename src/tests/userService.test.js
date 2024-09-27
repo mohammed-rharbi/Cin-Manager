@@ -46,21 +46,6 @@ test('login user successfully', async ()=>{
 
 
 
-// test('schould throw error when regster existing user', async ()=>{
-
-//     const existingUser = {name : 'test' , email : 'test@gmail.com' , password : 'sometest' , role : 'customer' };
-
-//     userRepositories.getUserByEmail.mockResolvedValue(existingUser);
-
-//     await expect(userService.register({name : 'test' , email : 'test@gmail.com' , password : 'password123' , role : 'customer'})).rejects.toThrow('User already exists');
-
-//     expect(userRepositories.getUserByEmail).toHaveBeenCalledWith('test@gmail.com');
-//     expect(userRepositories.createUser).not.toHaveBeenCalled();
-
-// });
-
-
-
 test('should throw an error when user enters wrong password', async () => {
     const existingUser = { name: 'test', email: 'test@gmail.com', password: 'hashedPassword', role: 'customer' };
   

@@ -38,7 +38,7 @@ class MovieService{
 
 
         const movie = await movieRepositories.getMovieById(id);
-        if(!movie) throw new Error('movie not found');
+        if(!movie) throw new Error('Movie not found');
         return movie;
     }
 
@@ -65,6 +65,8 @@ class MovieService{
 
 
          await movieRepositories.deleteMovie(id);
+         
+         return 'movie was deleted successfully';
 
     }
 

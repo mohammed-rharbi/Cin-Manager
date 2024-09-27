@@ -13,7 +13,6 @@ router.get('/allMovies' , movieController.getMovies);
 
 router.use(isAdmin);
 
-
 router.post('/createMovie' , movieController.createMovie );
 router.put('/updateMovie/:id' , movieController.updateMovie);
 router.delete('/deleteMovie/:id' , movieController.deleteMovie);
