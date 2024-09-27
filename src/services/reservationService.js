@@ -15,6 +15,7 @@ class resrevationService {
             throw new Error('user is required');
         }
 
+
         if(!showTimeId || !seateId) {
             throw new Error('showTime and seate are required');
         }
@@ -27,7 +28,7 @@ class resrevationService {
 
         const seate =  await seatRepositories.getSeatById(seateId);
 
-        if(!seate) {
+        if(!seate || !seate.isAvailable){
             throw new Error('seate is not available');
         }
         
