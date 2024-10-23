@@ -51,3 +51,10 @@ exports.getAllAdmins = async () => {
     return await User.find({role:'admin'});
 }
 
+exports.userProfileUpdate = async (userId , data)=>{
+
+    
+    return await User.findByIdAndUpdate(userId , data , {new:true})
+    
+}
+
