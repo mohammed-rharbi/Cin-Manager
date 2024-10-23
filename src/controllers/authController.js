@@ -30,27 +30,29 @@ exports.registerUser = async (req , res)=>{
 };
 
 
+exports.loginUser = (req, res) => {
+    try {
+        const { error } = loginValidation.validate(req.body);
+        if (error) throw new Error(error.details[0].message);
 
-exports.loginUser = async (req , res)=>{
+        userService.login(req.body, (user) => {
 
+                const token = jwt.sign({ id: user._id, role: user.role }, jwt_secret, { expiresIn: '3h' });
 
-try{
+            res.status(200).json({
+                message: 'User logged in successfully',
+                user,
+                token: token
+                });
+            })
+            .catch(err => {
+                res.status(400).json({ error: err.message });
+            });
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
 
-const {error} = loginValidation.validate(req.body);
-if(error) throw new Error(error.details[0].message);
-
-const user = await userService.login(req.body);
-    
-const tokken = jwt.sign({id : user._id , role : user.role} , jwt_secret , {expiresIn : '3h'});
-
-res.status(200).json({message:'user was login successfully', user , token : tokken});
-
-}catch(err){    
-    res.status(400).json({error : err.message});
-}
-
-
-}
 
 
 exports.logoutUser = async (req , res)=>{

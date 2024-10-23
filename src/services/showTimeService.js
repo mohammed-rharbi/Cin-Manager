@@ -48,6 +48,7 @@ class showtimeService {
     async getAllShowtimes() {
 
         return await ShowtimeRepositories.getAvailableShowtimes();
+        
     }
 
     async getShowtimeById(id) {
@@ -75,6 +76,11 @@ class showtimeService {
        
         const seats = showtime.seats;
         return {seats};
+    }
+
+    async getShowtimeByMovieId(id) {
+        
+        return await ShowtimeRepositories.getShowTimeByMovieId(id);
     }
     
 

@@ -18,14 +18,22 @@ async getAllShowtimes() {
 
 async getAvailableShowtimes() {
 
-    return await showtime.find({Available : true});
+    return await showtime.find({Available : true}).populate('room').populate('movie');
+
+}
+
+
+async getShowTimeByMovieId(id){
+
+    return await showtime.find({movie : id  , Available : true}).populate('room');
+
 }
 
 
 async getShowtimeById(id) {
 
 
-    return await showtime.findById(id);
+    return await showtime.findById(id).populate('room').populate('movie');
 
 }
 

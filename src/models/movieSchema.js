@@ -9,7 +9,9 @@ const movieSchema = new mongoose.Schema({
     deroctor: {type:String , required:true},
     duration:{type:Number , required:true},
     relseDate:{type:Date , required:true},
-    image: {type:String , required:false},
+    image: {type:String , required:false},  
+    video: {type:String , required:false},
+    gen: {type:String , required:false},
 
 } , {timestamps:true});
 

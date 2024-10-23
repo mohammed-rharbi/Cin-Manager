@@ -9,7 +9,6 @@ class resrevationRepositories {
 async create (userId , {showTimeId , seateId}) {
 
         
-console.log(userId , showTimeId , seateId);
     const newReservation = new resrevation({
         user : userId,
         showtime : showTimeId,
@@ -18,6 +17,8 @@ console.log(userId , showTimeId , seateId);
 
     return await newReservation.save();
 }
+
+
 async getAll () {
 
     return await resrevation.find();

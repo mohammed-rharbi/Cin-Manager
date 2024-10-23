@@ -20,7 +20,7 @@ class resrevationService {
             throw new Error('showTime and seate are required');
         }
         
-        const showtime = showTimeRepositories.getShowtimeById(showTimeId);
+        const showtime = await showTimeRepositories.getShowtimeById(showTimeId);
 
         if(!showtime) {
             throw new Error('showtime not found');
@@ -41,9 +41,6 @@ class resrevationService {
         if(!resever) throw new Error('user not found');
 
         const email = resever.email;
-
-
-
 
 
         const emailContent = mailer.generateEmail(reservation);

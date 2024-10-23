@@ -19,7 +19,7 @@ async create (movieData){
 
 async getMovieById(id){
 
-return await Movie.findById(id);
+return await Movie.findOne({_id : id});
 }
 
 
@@ -41,7 +41,30 @@ return await Movie.findByIdAndDelete(id);
 }
 
 
+async getRealtedMovies(movieId , Director , gen , relseDate){
 
+
+    const realted = await Movie.find({
+
+        _id: { $ne: movieId },
+        $or:[
+
+           { deroctor: Director},
+           { gen: gen},
+           { relseDate : relseDate}
+            
+        ]
+       
+    }).limit(4)
+
+    return realted 
+
+}
+
+async getLatestMovies(){
+
+    return await Movie.find().sort({relseDate:-1}).limit(10);
+}
 
 
 }

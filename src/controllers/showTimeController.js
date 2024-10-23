@@ -32,8 +32,8 @@ exports.getAllShowTimes = async (req , res) =>{
     try{
 
         const showTimes = await showtimeService.getAllShowtimes();
-        res.status(200).json({message : 'showtimes were fetched successfully' , showTimes});
-
+         res.status(200).json({message : 'showtimes were fetched successfully' , showTimes});
+        
     }catch(err){
 
         res.status(400).json({error : err.message});
@@ -88,6 +88,20 @@ exports.getSeats = async (req , res)=>{
         const seats = await showtimeService.getSetsByShowtime(req.params.id);
 
         res.status(200).json({message : 'seats were fetched successfully' , seats});
+    }catch(err){
+
+        res.status(400).json({error : err.message});
+    }
+}
+
+
+exports.getShowtimeById = async (req , res)=>{
+
+    try{
+
+
+        const showtimes = await showtimeService.getShowtimeById(req.params.id);
+        res.status(200).json({message : 'showtime was fetched successfully' , showtimes});
     }catch(err){
 
         res.status(400).json({error : err.message});

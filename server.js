@@ -6,15 +6,25 @@ const movieRouter = require('./src/routes/movieRouter');
 const roomRouter = require('./src/routes/roomRouter');
 const showTimeRouter = require('./src/routes/showTimeRouter');
 const reservationRouter = require('./src/routes/reservationRouter');
+const favoriteRouter = require('./src/routes/favoriteRouter');
+const ratingRouter = require('./src/routes/ratingRouter')
+const commentRouter = require('./src/routes/commentRouter')
+const swagger = require('./src/config/swagger');
+const cors = require('cors');
 
 connectDB();
 const app = express();
 
+app.use(cors({
+    origin: 'http://localhost:5173',
+    methods: ['GET', 'POST' , 'DELETE' , 'PUT'],
+    credentials: true
+}));
 
 app.use(express.json());
 
 
-
+swagger(app);
 
 
 app.get('/' , (req , res)=>{
@@ -29,7 +39,9 @@ app.use('/api/movie', movieRouter);
 app.use('/api/room', roomRouter);
 app.use('/api/showTime', showTimeRouter);
 app.use('/api/reservation', reservationRouter);
-
+app.use('/api/favorite' , favoriteRouter);
+app.use('/api/rating', ratingRouter);
+app.use('/api/comments/' , commentRouter)
 
 
 

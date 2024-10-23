@@ -9,7 +9,10 @@ exports.createRoom = async (req , res)=>{
 
     try{
 
-        newRoom = await roomService.createRoom(req.body);
+        const image = req.file ? req.file.path : null;
+        
+
+        newRoom = await roomService.createRoom({...req.body , image});
         res.status(201).json({message : 'room was created successfully' , room : newRoom});
 }
 

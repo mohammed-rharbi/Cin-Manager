@@ -13,9 +13,9 @@ exports.createUser = async (userData)=>{
 
 
 
-exports.getUserByEmail = async (userEmail)=>{
+exports.getUserByEmail = async (email)=>{
 
-    return await  User.findOne({email : userEmail});
+    return await  User.findOne({email : email});
      
 }
 
@@ -38,3 +38,16 @@ exports.deleteUser = async (id)=>{
 exports.save = async (user)=>{
     return await user.save();
 }
+
+
+exports.getAllCustomers = async () => {
+
+    return await User.find({role:'customer'});
+}
+
+
+exports.getAllAdmins = async () => {
+
+    return await User.find({role:'admin'});
+}
+

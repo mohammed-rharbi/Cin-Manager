@@ -139,6 +139,22 @@ The mission of this project is to develop a management application for a cinema.
 - `POST /api/reservation/cancelReservation/:id` - cancel a Reservation (Customer only) .
 - `GET /api/reservation/getAllReservations` - get all reservations .
 
+#### Rate movie :
+- `POST /api/rating/rateMovie` -  rate movie  (Customer only) .
+- `GET /api/rating/getMovieRatings/:id` - get all movie rating .
+- `GET /api/rating/getMovieRate/:id'` - get movie rate .
+
+
+#### favorite movie :
+- `POST /api/favorite/addToFavorite` -  add movie to favorites  (Customer only) .
+- `GET /api/favorite/myFavorites/:id` - get all user favorite movies .
+
+
+#### comments :
+- `POST /api/comment/addComment` -  add comment to  movie  (Customer only) .
+- `GET /api/comment/getComments/:id` - display all comments .
+
+
 
 
 ### Security & Access Management:
@@ -168,4 +184,5 @@ The mission of this project is to develop a management application for a cinema.
 - Building a **RESTful API**.
 - Implementing **JWT** for authentication.
 - Handling **JSON** data communication.
+- bulding interface with react js
 - Writing unit tests.

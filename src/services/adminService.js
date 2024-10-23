@@ -41,3 +41,17 @@ exports.deleteAdmin = async (id)=>{
 
     return await  userRepositories.deleteUser(id);
 }
+
+
+exports.getAllCustomers = async ()=>{
+
+
+    return await userRepositories.getAllCustomers(); 
+}
+
+
+exports.getAllAdmins = async ()=>{
+
+
+    return await userRepositories.getAllAdmins(); 
+}
