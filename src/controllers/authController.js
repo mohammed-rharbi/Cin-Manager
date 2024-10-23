@@ -91,3 +91,23 @@ exports.resetPassword = async (req , res)=>{
     }
 
 }
+
+exports.updateProfile = async (req , res)=>{
+
+
+    try{
+
+        const userId = req.params.id
+
+        const profileImage = req.file ? req.file.path : null;
+
+
+        const updatedProfile = userService.profileUpdate( userId , { ...req.body , profileImage});
+        res.status(200).json({message : 'profile was updated successfully' , updatedProfile}); 
+
+
+    }catch(err){
+
+        return res.status(400).json({error: err.message})
+    }
+}
