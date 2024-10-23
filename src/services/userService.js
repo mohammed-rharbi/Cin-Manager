@@ -109,3 +109,18 @@ return 'password reset successfully';
 }
 
 
+exports.profileUpdate = async (userId , userData)=>{
+
+    const {name , email , birthDay , image} = userData;
+
+    if(!name || !email){
+
+        throw new Error('name and email are requird');
+    }
+
+    const updatedProfile = userRepositories.userProfileUpdate(userId , {name , email , birthDay , image});
+
+    return updatedProfile;
+
+}
+
