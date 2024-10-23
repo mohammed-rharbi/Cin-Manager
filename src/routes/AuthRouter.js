@@ -1,6 +1,8 @@
 const express = require('express');
 const AuthController = require('../controllers/authController');
-const { authMiddlware } = require('../middlewares/authMiddleware');
+const {isCustomer , authMiddlware} = require('../middlewares/authMiddleware');
+const upload = require('../middlewares/upload');
+
 const router = express.Router();
 
 /**
@@ -123,5 +125,11 @@ router.post('/forget', AuthController.ReqresetPassword);
  *         description: Invalid token or request
  */
 router.post('/resetPassword/:resetToken', AuthController.resetPassword);
+
+
+router.use(authMiddlware , isCustomer);
+
+
+router.put('/updateProfile/:id' , upload.single('image') , AuthController.updateProfile );
 
 module.exports = router;
