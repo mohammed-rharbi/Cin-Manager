@@ -4,7 +4,9 @@ const jwt_secret = process.env.JWT_SECRET;
 
 exports.authMiddlware = async (req , res , next)=>{
 
+
     const token = req.header('Authorization')?.split(' ')[1];
+
 
     if(!token) return res.status(401).json({message : 'Please login'});
 

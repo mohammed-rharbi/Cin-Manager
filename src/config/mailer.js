@@ -6,8 +6,6 @@ dotenv.config();
 
 const transporter = mailer.createTransport({
     service: 'gmail',
-    // host: process.env.MAIL_HOST,
-    // port: process.env.MAIL_PORT,
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
@@ -23,9 +21,9 @@ exports.sendConfirmation = async (to , body)=>{
         subject : 'Reservation Confirmation',
         html: body
     };
+
     try{
 
-       
         const info = await transporter.sendMail(mailOptions);
 
         console.log('Message sent: %s', info.response);
@@ -39,11 +37,11 @@ exports.sendConfirmation = async (to , body)=>{
     }
 }
 
-exports.generateEmail = async (reservation) => {
+exports.generateEmail = (reservation) => {
     return `
      <h1>Reservation Confirmation</h1>
      <p>Thank you for your reservation!</p>
-     <p><strong>Movie:</strong>'Movie title unavailable'}</p>
+     <p><strong>Movie:</strong></p>
      <p><strong>Showtime:</strong>'Time unavailable'}</p>
      <p><strong>Seat:</strong>'Seat number unavailable'}</p>
      <p><strong>Date:</strong>'Date unavailable'}</p>

@@ -26,22 +26,25 @@ exports.register = async (userData)=>{
 
     return newUser;
 }
+exports.login = (userData, callback) => {
 
-exports.login = async (userData)=>{
+    const { email, password } = userData;
 
-    const {email , password} = userData;
+    return userRepositories.getUserByEmail(email)
+    .then(user => {
+    if (!user) throw new Error('User not found');
 
+    return bcrypt.compare(password, user.password)
+    .then(isMatch => {
+     if (!isMatch) throw new Error('Invalid credentials');
 
-    const user = await userRepositories.getUserByEmail(email);
-    if(!user) throw new Error('user not found');
-
-
-    const isMatch = await bcrypt.compare(password , user.password);
-    if(!isMatch) throw new Error('invalid credentials');
-
-
-    return user;
-}
+    callback(user);
+    });
+    })
+    .catch(err => {
+            throw new Error('its error');
+    });
+};
 
 
 exports.resetPasswordRequist = async (email)=>{
@@ -53,12 +56,12 @@ const userId =  user._id;
 
 
 const resetTokken = jwt.sign({id : userId} , jwt_secret , {expiresIn : '1h'});
-const resLink = `http://localhost:5000/api/auth/resetPassword/${resetTokken}`;
+const resLink = `http://localhost:5173/reset-password/${resetTokken}`;
 
 const transporter = nodemailer.createTransport({
 
     service:'gmail',
-    auth:{
+    auth:{  
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
     }

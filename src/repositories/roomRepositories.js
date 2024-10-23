@@ -15,7 +15,7 @@ class RoomRepository {
 
     async getAllRooms(){
 
-        return await room.find();
+        return await room.find().populate('seats');
     }
 
     async updateRoom(id , roomData){

@@ -17,7 +17,7 @@ exports.createReservation = async (req , res)=>{
         res.status(201).json({message : 'reservation was created successfully' , reservation : reservation});
 
     }catch(err){
-        res.status(400).json({error : err.message});
+        res.status(404).json({error : err.message});
 
     }
 }

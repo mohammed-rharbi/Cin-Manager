@@ -48,8 +48,9 @@ exports.deleteAdmin = async (req , res)=>{
 
     try{
 
+        const userId = req.params.id ;
 
-    const deletedAdmin = await adminService.deleteAdmin(req.params.id);
+    const deletedAdmin = await adminService.deleteAdmin(userId);
 
     res.status(200).json({message : 'admin was deleted successfully' , admin : deletedAdmin});
 
@@ -59,4 +60,40 @@ exports.deleteAdmin = async (req , res)=>{
 
     }
     
+}
+
+
+
+exports.getAllCustomers = async (req , res) =>{
+
+    
+    try{
+
+    const Customers = await adminService.getAllCustomers();
+
+    if(!Customers) throw new Error('no customers were found');
+
+    res.status(200).json({message : "admins fetsh successfully" , Customers});
+
+    }catch(err){
+        res.status(402).json({error: err.message})
+    }
+
+}
+
+exports.getAllAdmins = async (req , res) =>{
+
+    
+    try{
+
+    const admins = await adminService.getAllAdmins();
+
+    if(!admins) throw new Error('no admins were found');
+
+    res.status(200).json({message : "admins fetsh successfully" , admins});
+
+    }catch(err){
+        res.status(402).json({error: err.message})
+    }
+
 }
