@@ -1,11 +1,11 @@
 const express = require('express');
 const AuthController = require('../controllers/authController');
 const {isCustomer , authMiddlware} = require('../middlewares/authMiddleware');
-const upload = require('../middlewares/upload');
+const upload = require('../config/multer');
 
 const router = express.Router();
 
-/**
+/**         
  * @swagger
  * /auth/register:
  *   post:
@@ -130,6 +130,8 @@ router.post('/resetPassword/:resetToken', AuthController.resetPassword);
 router.use(authMiddlware , isCustomer);
 
 
-router.put('/updateProfile/:id' , upload.single('image') , AuthController.updateProfile );
+router.get('/getUserById/:id' , AuthController.getUserInfo );
+
+router.put('/updateProfile/:id' , AuthController.updateProfile );
 
 module.exports = router;

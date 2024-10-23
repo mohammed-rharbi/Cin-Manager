@@ -51,10 +51,10 @@ exports.getAllAdmins = async () => {
     return await User.find({role:'admin'});
 }
 
-exports.userProfileUpdate = async (userId , data)=>{
+exports.userProfileUpdate = async (userId , {name , email , birthDay })=>{
 
     
-    return await User.findByIdAndUpdate(userId , data , {new:true})
+    return await User.findByIdAndUpdate(userId , {name :name , email: email , birthDay : birthDay} , {new:true})
     
 }
 
