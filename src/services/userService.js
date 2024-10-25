@@ -109,3 +109,30 @@ return 'password reset successfully';
 }
 
 
+exports.profileUpdate = async (userId , userData)=>{
+
+    const {name , email , birthDay } = userData;
+
+    if(!name || !email){
+
+        throw new Error('name and email are requird');
+    }
+
+    const updatedProfile = userRepositories.userProfileUpdate(userId , {name , email , birthDay });
+
+    return {updatedProfile};
+
+}
+
+exports.getUserById = async (Id)=>{
+
+    
+    const user = await userRepositories.getUserById(Id);
+
+    if(!user){
+        throw new Error('user was not found');
+    }
+
+    return user
+
+}

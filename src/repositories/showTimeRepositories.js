@@ -45,13 +45,21 @@ async updateShowtime(id , showtimeData) {
 
 async deleteShowtime(id) {
 
-    return await showtime.findByIdAndDelete(id);
+    return await showtime.findByIdAndDelete({_id: id});
 }
 
 async getShowtimeByRoomAndTime(room , time) {
 
     return await showtime.findOne({room : room , time : time});
 }
+
+
+
+async getShowtimeByRoom(room ) {
+
+    return await showtime.findOne({room : room });
+}
+
 
 }
 

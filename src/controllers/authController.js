@@ -91,3 +91,45 @@ exports.resetPassword = async (req , res)=>{
     }
 
 }
+
+exports.updateProfile = async (req , res)=>{
+
+
+    try{
+
+        const userId = req.params.id
+
+        const {name , email , birthDay} = req.body
+
+        const profileImage = req.file ? req.file.path : null;
+
+
+        const updatedProfile = userService.profileUpdate( userId , { name , email , birthDay });
+        res.status(200).json({message : 'profile was updated successfully' , updatedProfile}); 
+
+            
+    }catch(err){
+
+        return res.status(400).json({error: err.message})
+    }
+}
+
+exports.getUserInfo = async (req , res)=>{
+
+
+    try{
+
+        const userId = req.params.id
+
+        const user = await userService.getUserById(userId);
+    
+        if(!user){
+            return res.status(400).json({message:"user not found"});
+        }
+    
+        res.status(200).json({message : 'user fetched successfully' , updatUser:user })
+
+    }catch(err){
+        return res.status(400).json({Error : err.message})
+    }
+}

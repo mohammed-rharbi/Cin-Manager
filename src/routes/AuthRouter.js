@@ -1,9 +1,11 @@
 const express = require('express');
 const AuthController = require('../controllers/authController');
-const { authMiddlware } = require('../middlewares/authMiddleware');
+const {isCustomer , authMiddlware} = require('../middlewares/authMiddleware');
+const upload = require('../config/multer');
+
 const router = express.Router();
 
-/**
+/**         
  * @swagger
  * /auth/register:
  *   post:
@@ -123,5 +125,13 @@ router.post('/forget', AuthController.ReqresetPassword);
  *         description: Invalid token or request
  */
 router.post('/resetPassword/:resetToken', AuthController.resetPassword);
+
+
+router.use(authMiddlware , isCustomer);
+
+
+router.get('/getUserById/:id' , AuthController.getUserInfo );
+
+router.put('/updateProfile/:id' , AuthController.updateProfile );
 
 module.exports = router;

@@ -4,7 +4,7 @@ const roomService = require('../services/roomService');
 exports.createRoom = async (req , res)=>{
 
 
-    const { name , capacity , type } = req.body;
+    const { name , capacity , type , description } = req.body;
 
 
     try{
@@ -57,9 +57,12 @@ exports.updateRoom = async (req , res)=>{
 exports.deleteRoom = async (req , res)=>{
 
 
+
     try{
 
         await roomService.deleteRoom(req.params.id);
+
+        
 
         res.status(200).json({message : 'room was deleted successfully'});
     }

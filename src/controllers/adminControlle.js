@@ -20,7 +20,7 @@ exports.RegisterAdmin = async (req , res)=>{
         res.status(201).json({message:'admin was registerd successfully', user: newAdmin , token : tokken});
 
     }catch(err){
-
+        
         res.status(400).json({error : err.message});
     }
 }
