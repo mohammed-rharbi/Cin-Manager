@@ -1,5 +1,6 @@
 const roomRepositories = require('../repositories/roomRepositories');
 const seatRepositories = require('../repositories/seatRepositories');
+const showTimeRepositories = require('../repositories/showTimeRepositories');
 
 
 
@@ -42,18 +43,19 @@ class RoomService {
     }
 
     async deleteRoom(id) {
+        const showTime = await showTimeRepositories.getShowtimeByRoom(id);
+    
 
-        await seatRepositories.deletByRoom(id);
-
-        const room = await  roomRepositories.deleteRoom(id);
-        if (!room) {
-            throw new Error('room not found');
+        if (!showTime || showTime.length === 0) {
+            await seatRepositories.deletByRoom(id);
+            return await roomRepositories.deleteRoom(id);
         }
+    
 
-        return room;
-
+        throw new Error('Cannot delete this room because it has associated showtimes.');
     }
-
+    
+    
 
 }
 
