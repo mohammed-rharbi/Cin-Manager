@@ -25,6 +25,11 @@ const router = express.Router();
  */
 router.get('/getRooms', roomController.getRooms);
 
+
+
+router.get('/getRoom/:id' , roomController.getRoomById);
+
+
 // All routes below require authentication
 router.use(authMiddlware);
 
@@ -99,7 +104,8 @@ router.use(isAdmin);
  *       404:
  *         description: Room not found
  */
-router.put('/updateRoom/:id', roomController.updateRoom);
+
+router.put('/updateRoom/:id', upload.single('image'), roomController.updateRoom);
 
 /**
  * @swagger

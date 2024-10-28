@@ -2,6 +2,8 @@
     const ShowtimeRepositories = require('../repositories/showTimeRepositories');
     const cloudinary = require('cloudinary');
     const minioClient = require('../config/minioConfig');
+    const fs = require('fs');
+    const path = require('path');
 
 
 
@@ -17,37 +19,51 @@
             return  newMovie
         }
 
-        async uploadVideoToMovie(videoFile){
-
-            return new Promise((resolve , reject)=>{
-                
-                const bocket = 'movies';
-                const videoPath = videoFile.path;
-                const videoName = videoFile.originalname;
-
-                minioClient.fPutObject(bocket , videoName , videoPath , (err , etag)=>{
-                    
-                    if(err){
-                        console.log('Error uploading video', err);
-                        reject(err);
+        async uploadVideoToMovie(videoFile) {
+            const fs = require('fs');
+            const path = require('path');
+            const bucket = 'movies';
+            const videoName = videoFile.originalname;
+            const tempDir = path.join(__dirname, '../temp');
+            const tempFilePath = path.join(tempDir, videoName);
+        
+            // Check if temp directory exists; if not, create it
+            if (!fs.existsSync(tempDir)) {
+                fs.mkdirSync(tempDir, { recursive: true });
+            }
+        
+            return new Promise((resolve, reject) => {
+                // Write the buffer to a temporary file
+                fs.writeFile(tempFilePath, videoFile.buffer, (err) => {
+                    if (err) {
+                        console.log('Error writing temporary file:', err);
+                        return reject(err);
                     }
-
-                
-                minioClient.presignedUrl('GET' , bocket , videoName , 24 * 60 * 60 , (err , videoUrl)=>{
-                  
-                    if(err){
-                        console.log('Error getting video url', err);
-                        reject(err);
-                    }
-
-                    resolve(videoUrl);
-                })
-
-                
-                })
-            })
-
+        
+                    // Upload the file to MinIO
+                    minioClient.fPutObject(bucket, videoName, tempFilePath, (err, etag) => {
+                        // Delete the temporary file after upload
+                        fs.unlink(tempFilePath, () => {
+                            if (err) {
+                                console.log('Error uploading video:', err);
+                                return reject(err);
+                            }
+        
+                            // Get a pre-signed URL for accessing the video
+                            minioClient.presignedUrl('GET', bucket, videoName, 24 * 60 * 60, (err, videoUrl) => {
+                                if (err) {
+                                    console.log('Error getting video URL:', err);
+                                    return reject(err);
+                                }
+        
+                                resolve(videoUrl);
+                            });
+                        });
+                    });
+                });
+            });
         }
+        
 
 
         async addVideoToMovie(movieId , videoUrl){

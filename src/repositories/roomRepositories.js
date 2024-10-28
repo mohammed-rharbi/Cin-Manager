@@ -18,9 +18,9 @@ class RoomRepository {
         return await room.find().populate('seats');
     }
 
-    async updateRoom(id , roomData){
+    async updateRoom(id , {name , capacity , type , description , image}){
 
-        return await room.findByIdAndUpdate(id , roomData , {new : true});
+        return await room.findByIdAndUpdate(id , {name : name , capacity: capacity , type: type , image: image , description: description} , {new : true});
     }
 
     async deleteRoom(id){

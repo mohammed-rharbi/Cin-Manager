@@ -22,6 +22,6 @@ const uploadIT = multer({
     }
     cb(new Error('Only video files are allowed!'));
   }
-});
+}).single('video')
 
 module.exports = uploadIT;

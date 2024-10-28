@@ -36,11 +36,23 @@ class RoomService {
     }
 
 
-    async updateRoom(id , roomData) {
 
-        return await roomRepositories.updateRoom(id , roomData);
+
+    async updateRoom(id , {name , capacity , type , description , image}) {
+
+
+        const updatedData = {name , capacity , type , description};
+
+        if(image ) updatedData.image = image 
+
+        return await roomRepositories.updateRoom(id , updatedData);
 
     }
+
+
+
+
+
 
     async deleteRoom(id) {
         const showTime = await showTimeRepositories.getShowtimeByRoom(id);
@@ -53,6 +65,18 @@ class RoomService {
     
 
         throw new Error('Cannot delete this room because it has associated showtimes.');
+    }
+
+    async getRoomById(id){
+
+    const room = await roomRepositories.getRoomById(id);
+
+    if(!room){
+        throw new Error('show room not found')
+    }
+
+    return room
+
     }
     
     

@@ -160,7 +160,7 @@ router.post('/createMovie', upload.single('image'), movieController.createMovie)
  *       404:
  *         description: Movie not found
  */
-router.post('/:movieId/addVideo', uploadIT.single('video'), movieController.addVideoToMovie);
+router.post('/:movieId/addVideo', uploadIT , movieController.addVideoToMovie);
 
 /**
  * @swagger

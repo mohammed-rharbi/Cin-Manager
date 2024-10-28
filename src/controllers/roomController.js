@@ -43,7 +43,16 @@ exports.updateRoom = async (req , res)=>{
 
 
     try{
-        const updatedRoom = await roomService.updateRoom(req.params.id , req.body);
+
+        console.log(req.body)
+
+
+        const {name , capacity , type , description  } = req.body 
+        
+        const image = req.file ? req.file.path : null ;
+
+        
+        const updatedRoom = await roomService.updateRoom(req.params.id , {name , capacity , type , description , image});
 
         res.status(200).json({message : 'room was updated successfully' , room : updatedRoom});
 
@@ -71,5 +80,21 @@ exports.deleteRoom = async (req , res)=>{
 
         res.status(400).json({error : err.message});
 
+    }
+}
+
+exports.getRoomById = async (req , res)=>{
+
+
+    try{
+
+        const roomId = req.params.id 
+
+        const room = await roomService.getRoomById(roomId);
+        res.status(200).json({message:"room ftched successfully" , room});
+
+    }catch(err){
+        
+        res.status(400).json('error while fetching room')
     }
 }

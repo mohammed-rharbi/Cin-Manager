@@ -35,14 +35,21 @@ exports.addVideoToMovie = async (req , res)=>{
 
     try{
 
+
         const {movieId} = req.params;
 
-        const videoFile = req.file;
+
+        const videoFile = req.file ;
+
+        console.log(videoFile);
 
         if(!movieId) throw new Error('movie id is required');
+
         if(!videoFile) throw new Error('video file is required');
 
         const videoUrl = await MovieService.uploadVideoToMovie(videoFile);
+
+        console.log(videoFile)
 
         const updatedMovie = await MovieService.addVideoToMovie(movieId , videoUrl);
 
