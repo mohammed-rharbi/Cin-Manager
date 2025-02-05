@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 
 
 
+
 const jwt_secret = process.env.JWT_SECRET;
 
 exports.registerUser = async (req , res)=>{

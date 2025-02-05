@@ -12,11 +12,18 @@ const commentRouter = require('./src/routes/commentRouter')
 const swagger = require('./src/config/swagger');
 const cors = require('cors');
 
+const dotenv = require('dotenv');
+
+dotenv.config();
+
+
+
 connectDB();
 const app = express();
 
+
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: '*',
     methods: ['GET', 'POST' , 'DELETE' , 'PUT'],
     credentials: true
 }));
@@ -46,7 +53,7 @@ app.use('/api/comments/' , commentRouter)
 
 
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
 })
